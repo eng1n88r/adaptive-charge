@@ -64,3 +64,9 @@ habit that *straddles* midnight (23:50 some days, 00:10 others) averages to
 a mid-day nonsense value. A habit consistently just *after* midnight is fine
 — the top-up window correctly reaches back into the previous evening.
 Fixable with circular statistics if it ever matters.
+
+## Omarchy widget
+
+A power-panel widget for Omarchy (on/off switch, ceiling presets, live
+status) lives at
+[omarchy-adaptive-power](https://github.com/eng1n88r/omarchy-adaptive-power).
