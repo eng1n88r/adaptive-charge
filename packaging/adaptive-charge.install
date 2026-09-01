@@ -1,0 +1,14 @@
+post_install() {
+  echo "==> Enable the daemon:   sudo systemctl enable --now adaptive-charge.service"
+  echo "==> Optional, learn from existing UPower history:"
+  echo "                         sudo adaptive-charge seed --write"
+  echo "==> Check what it knows: adaptive-charge status"
+}
+
+post_upgrade() {
+  systemctl try-restart adaptive-charge.service 2>/dev/null || true
+}
+
+pre_remove() {
+  systemctl disable --now adaptive-charge.service 2>/dev/null || true
+}

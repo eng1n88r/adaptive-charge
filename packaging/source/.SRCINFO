@@ -1,0 +1,15 @@
+pkgbase = adaptive-charge
+	pkgdesc = Adaptive battery charge ceiling daemon - learns your unplug schedule, tops up before you leave
+	pkgver = 1.0.0
+	pkgrel = 1
+	url = https://github.com/eng1n88r/adaptive-charge
+	install = ../adaptive-charge.install
+	arch = x86_64
+	license = MIT
+	makedepends = cargo
+	depends = systemd
+	optdepends = upower: AC-change wakeups and history seeding
+	source = adaptive-charge-1.0.0.tar.gz::https://github.com/eng1n88r/adaptive-charge/archive/refs/tags/v1.0.0.tar.gz
+	sha256sums = SKIP
+
+pkgname = adaptive-charge

@@ -1,0 +1,29 @@
+# Maintainer: Viktar Hushchynski <viktar.hushchynski@gmail.com>
+pkgname=adaptive-charge
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Adaptive battery charge ceiling daemon - learns your unplug schedule, tops up before you leave"
+arch=('x86_64')
+url="https://github.com/eng1n88r/adaptive-charge"
+license=('MIT')
+depends=('systemd')
+makedepends=('cargo')
+optdepends=('upower: AC-change wakeups and history seeding')
+install=../adaptive-charge.install
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+  cargo build --release --locked
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  install -Dm755 target/release/adaptive-charge "$pkgdir/usr/bin/adaptive-charge"
+  sed 's|/usr/local|/usr|g' contrib/adaptive-charge.service |
+    install -Dm644 /dev/stdin "$pkgdir/usr/lib/systemd/system/adaptive-charge.service"
+  sed 's|/usr/local|/usr|g' contrib/sudoers-adaptive-charge |
+    install -Dm440 /dev/stdin "$pkgdir/etc/sudoers.d/adaptive-charge"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
