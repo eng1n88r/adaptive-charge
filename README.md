@@ -41,8 +41,24 @@ battery; it just never spent the night at full.
 
 ## Install
 
+**As a pacman package (recommended — no Rust toolchain needed):**
+
 ```sh
-make build          # as your user
+git clone https://github.com/eng1n88r/adaptive-charge
+cd adaptive-charge/packaging/bin
+makepkg -si
+sudo systemctl enable --now adaptive-charge.service
+sudo adaptive-charge seed --write   # optional: learn from UPower's history
+```
+
+The package pulls the prebuilt release binary, and pacman tracks every file
+(`pacman -R adaptive-charge-bin` uninstalls cleanly). An AUR listing will
+follow once AUR account registration reopens.
+
+**From source (for development):**
+
+```sh
+make build          # as your user; needs cargo
 sudo make install   # binary + unit + seed + enable, prints status when done
 ```
 
