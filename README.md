@@ -41,7 +41,19 @@ battery; it just never spent the night at full.
 
 ## Install
 
-**As a pacman package (recommended — no Rust toolchain needed):**
+**One line:**
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/eng1n88r/adaptive-charge/master/install.sh | bash
+```
+
+On Arch it builds and installs the pacman package from the prebuilt release
+(no Rust toolchain needed, `pacman -R adaptive-charge-bin` uninstalls);
+elsewhere it installs the release tarball, falling back to a cargo build.
+It refuses to install on hardware without kernel charge thresholds, then
+enables the daemon and seeds it from UPower's history.
+
+**Manually as a pacman package:**
 
 ```sh
 git clone https://github.com/eng1n88r/adaptive-charge
