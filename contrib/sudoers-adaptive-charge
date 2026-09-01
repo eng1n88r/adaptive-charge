@@ -1,0 +1,3 @@
+# One-click adaptive-charge controls from the Omarchy power panel.
+# Fixed commands only; anything else still requires a password.
+%wheel ALL=(root) NOPASSWD: /usr/bin/systemctl enable --now adaptive-charge.service, /usr/bin/systemctl disable --now adaptive-charge.service, /usr/local/bin/adaptive-charge ceiling 70, /usr/local/bin/adaptive-charge ceiling 80, /usr/local/bin/adaptive-charge ceiling 90, /usr/local/bin/adaptive-charge ceiling 100

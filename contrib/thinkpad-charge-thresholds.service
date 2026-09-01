@@ -1,0 +1,16 @@
+[Unit]
+Description=Set ThinkPad battery charge thresholds (75/85)
+Documentation=https://www.kernel.org/doc/html/latest/admin-guide/abi-testing.html
+ConditionPathExists=/sys/class/power_supply/BAT0/charge_control_end_threshold
+After=multi-user.target suspend.target hibernate.target hybrid-sleep.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+# start must be written before end: raising the floor first keeps the
+# EC from rejecting an end value that would sit below the old start.
+ExecStart=/usr/bin/bash -c 'echo 75 > /sys/class/power_supply/BAT0/charge_control_start_threshold'
+ExecStart=/usr/bin/bash -c 'echo 85 > /sys/class/power_supply/BAT0/charge_control_end_threshold'
+
+[Install]
+WantedBy=multi-user.target suspend.target hibernate.target hybrid-sleep.target

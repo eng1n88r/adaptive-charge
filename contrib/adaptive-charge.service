@@ -1,0 +1,27 @@
+[Unit]
+Description=Adaptive battery charge ceiling (event-driven, learns your unplug schedule)
+Documentation=file:/usr/local/bin/adaptive-charge
+ConditionPathExistsGlob=/sys/class/power_supply/BAT*/charge_control_end_threshold
+After=multi-user.target upower.service
+Wants=upower.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/adaptive-charge run
+Restart=on-failure
+RestartSec=10
+StateDirectory=adaptive-charge
+
+# Only needs to write the two threshold files under /sys.
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+NoNewPrivileges=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+RestrictNamespaces=yes
+MemoryMax=32M
+
+[Install]
+WantedBy=multi-user.target
